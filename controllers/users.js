@@ -1,8 +1,8 @@
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const {
   NoAuthError, NotFoundError, ConflictError, JWT_SECRET_KEY,
 } = require('../utils');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 function getUserInfo(req, res, next) {
@@ -64,5 +64,5 @@ module.exports = {
   updateProfile,
   getUserInfo,
   login,
-  createUser
+  createUser,
 };

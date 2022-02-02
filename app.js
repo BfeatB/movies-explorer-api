@@ -1,11 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const auth = require('./middlewares/auth');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
 const {
   celebrate, Joi, errors, Segments,
 } = require('celebrate');
+const auth = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { NotFoundError } = require('./utils');
 const { createUser, login } = require('./controllers/users');
 

@@ -10,7 +10,7 @@ router.delete(
       movieId: Joi.string().hex().length(24).required(),
     },
   }),
-  deleteMovie
+  deleteMovie,
 );
 router.post(
   '/',
