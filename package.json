@@ -1,0 +1,27 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npx eslint .",
+    "start": "node app.js",
+    "dev": "nodemon --inspect app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BfeatB/movies-explorer-api.git"
+  },
+  "devDependencies": {
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "nodemon": "^2.0.15"
+  },
+  "author": "bfeatb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BfeatB/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/BfeatB/movies-explorer-api#readme"
+}
