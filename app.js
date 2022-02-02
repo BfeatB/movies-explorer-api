@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const auth = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const {
   celebrate, Joi, errors, Segments,
 } = require('celebrate');
@@ -14,6 +15,8 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(requestLogger);
 
 app.post(
   '/signin',
@@ -46,6 +49,8 @@ app.use('/users', require('./routes/users'));
 app.use((req, res) => {
   throw new NotFoundError('Not implemented');
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 
