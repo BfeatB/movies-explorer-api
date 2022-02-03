@@ -20,7 +20,7 @@ function deleteMovie(req, res, next) {
       if (movie.owner.toString() !== req.user._id) {
         throw new NoAccessError('Нет доступа');
       }
-      return Movie.findByIdAndRemove(req.params.cardId);
+      return Movie.findByIdAndRemove(req.params.movieId);
     })
     .then((movie) => res.send(movie))
     .catch((err) => next(err));
