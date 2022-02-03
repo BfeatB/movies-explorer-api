@@ -32,7 +32,6 @@ function createUser(req, res, next) {
       name, about, avatar, email, password: hash,
     }))
     .then((data) => {
-      // eslint-disable-next-line no-underscore-dangle
       const user = { ...data._doc };
       delete user.password;
       res.send(user);

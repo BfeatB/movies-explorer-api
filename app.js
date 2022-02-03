@@ -73,8 +73,7 @@ app.use(auth);
 app.use('/movies', require('./routes/movies'));
 app.use('/users', require('./routes/users'));
 
-// eslint-disable-next-line no-unused-vars
-app.use((req, res) => {
+app.use((_req, _res) => {
   throw new NotFoundError('Not implemented');
 });
 
@@ -82,8 +81,7 @@ app.use(errorLogger);
 
 app.use(errors());
 
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
+app.use((err, _req, res, _next) => {
   const status = err.statusCode || 500;
   const message = err.message || 'Ошибка сервера';
   res.status(status).json({ error: err.name, status, message });
@@ -91,10 +89,8 @@ app.use((err, req, res, next) => {
 
 mongoose.connect('mongodb://localhost:27017/bitfilmsdb').then(() => {
   app.listen(PORT, () => {
-    // eslint-disable-next-line no-console
     console.log(`App listening on port ${PORT}`);
   });
 }).catch((err) => {
-  // eslint-disable-next-line no-console
   console.error(err);
 });

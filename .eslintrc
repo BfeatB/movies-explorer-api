@@ -5,9 +5,17 @@
             "error",
             {
                 "allow": [
-                    "_id"
+                    "_id",
+                    "_doc"
                 ]
             }
-        ]
+        ],
+        "no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_"
+            }
+        ],
+        "no-console": "off"
     }
 }
