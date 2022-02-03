@@ -19,8 +19,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 
 const allowedCors = [
-  'https://bfeatb-diploma.nomoredomains.rocks',
-  'http://bfeatb-diploma.nomoredomains.rocks',
+  'https://bfeatb.nomoredomains.rocks',
+  'http://bfeatb.nomoredomains.rocks',
   `http://localhost:${PORT}`,
 ];
 
