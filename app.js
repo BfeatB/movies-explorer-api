@@ -11,7 +11,7 @@ const { NotFoundError } = require('./utils');
 const { createUser, login } = require('./controllers/users');
 const limiter = require('./utils/rate-limiter');
 
-const { PORT = 3000, DB_ADDRESS = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
+const { PORT = 3000, DB_ADDRESS = 'mongodb://localhost:27017/moviesdb' } = process.env;
 
 const app = express();
 
