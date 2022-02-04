@@ -78,7 +78,11 @@ app.use(auth);
 app.use('/movies', require('./routes/movies'));
 app.use('/users', require('./routes/users'));
 
-app.use((_req, _res) => {
+// Законное исключение из правила неиспользуемых параметров в функции,
+// так как express.js применяет эти мидлвари в зависимости от количества аргументов функции,
+// поэтому их объявление нельзя опустить, а реально использовать незачем!
+// eslint-disable-next-line no-unused-vars
+app.use((req, res) => {
   throw new NotFoundError('Not implemented');
 });
 
@@ -86,7 +90,11 @@ app.use(errorLogger);
 
 app.use(errors());
 
-app.use((err, _req, res, _next) => {
+// Законное исключение из правила неиспользуемых параметров в функции,
+// так как express.js применяет эти мидлвари в зависимости от количества аргументов функции,
+// поэтому их объявление нельзя опустить, а реально использовать незачем!
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
   const status = err.statusCode || 500;
   const message = err.message || 'Ошибка сервера';
   res.status(status).json({ error: err.name, status, message });

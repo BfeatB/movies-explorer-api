@@ -32,7 +32,7 @@ function createUser(req, res, next) {
       name, about, avatar, email, password: hash,
     }))
     .then((data) => {
-      const user = { ...data._doc };
+      const user = JSON.parse(JSON.stringify(data));
       delete user.password;
       res.send(user);
     })
