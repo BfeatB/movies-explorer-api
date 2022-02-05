@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const { errors } = require('celebrate');
 const cors = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { errorHandler } = require('./middlewares/errors');
 const limiter = require('./utils/rate-limiter');
 const routers = require('./routes/index');
 
@@ -23,13 +24,7 @@ app.use(limiter);
 app.use(routers);
 app.use(errorLogger);
 app.use(errors());
-
-app.use((err, req, res, next) => {
-  const status = err.statusCode || 500;
-  const message = err.message || 'Ошибка сервера';
-  res.status(status).json({ error: err.name, status, message });
-  return next();
-});
+app.use(errorHandler);
 
 mongoose.connect(DB_ADDRESS).then(() => {
   app.listen(PORT, () => {
