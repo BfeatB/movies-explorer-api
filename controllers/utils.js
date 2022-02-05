@@ -1,6 +1,8 @@
+const { CrashServerMessage } = require('../utils/consts');
+
 function crashTest() {
   setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
+    throw new Error(CrashServerMessage);
   }, 0);
 }
 

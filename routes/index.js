@@ -4,6 +4,7 @@ const { NotFoundError } = require('../utils');
 const { signinValidator, signupValidator } = require('../utils/validation');
 const { createUser, login } = require('../controllers/users');
 const { crashTest } = require('../controllers/utils');
+const { NotImplementedErrorMessage } = require('../utils/consts');
 
 const auth = require('../middlewares/auth');
 const users = require('./users');
@@ -26,5 +27,5 @@ module.exports = router
   .use(users)
   .use(movies)
   .use('*', () => {
-    throw new NotFoundError('Not implemented');
+    throw new NotFoundError(NotImplementedErrorMessage);
   });

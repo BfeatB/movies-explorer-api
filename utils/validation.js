@@ -2,12 +2,13 @@ const validator = require('validator');
 const {
   celebrate, CelebrateError, Joi, Segments,
 } = require('celebrate');
+const { InvalidURLMessage } = require('./consts');
 
 function validateEmail(value) {
   if (validator.isURL(value)) {
     return value;
   }
-  throw new CelebrateError(`"${value}" is not a valid URL`);
+  throw new CelebrateError(InvalidURLMessage);
 }
 
 module.exports = {

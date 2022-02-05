@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const { InvalidURLMessage } = require('../utils/consts');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -26,7 +27,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: (value) => validator.isURL(value),
-      message: 'Неправильный формат URL',
+      message: InvalidURLMessage,
     },
     required: true,
   },
@@ -34,7 +35,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: (value) => validator.isURL(value),
-      message: 'Неправильный формат URL',
+      message: InvalidURLMessage,
     },
     required: true,
   },
@@ -42,7 +43,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: (value) => validator.isURL(value),
-      message: 'Неправильный формат URL',
+      message: InvalidURLMessage,
     },
     required: true,
   },
