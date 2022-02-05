@@ -5,6 +5,14 @@ const {
 } = require('../utils');
 const User = require('../models/user');
 
+function handleUpdateUserInfoError(err, next, email) {
+  if (err.code === 11000) {
+    next(new ConflictError(`Email "${email}" уже зарегистрирован!`));
+  } else {
+    next(err);
+  }
+}
+
 function getUserInfo(req, res, next) {
   User.findById(req.user._id)
     .orFail(new NotFoundError(`Пользователь id = "${req.user._id}" не найден`))
@@ -13,13 +21,12 @@ function getUserInfo(req, res, next) {
 }
 
 function updateProfile(req, res, next) {
-  User.findByIdAndUpdate(req.user._id, {
-    name: req.body.name,
-    email: req.body.email,
-  }, { new: true, runValidators: true })
+  const { name, email } = req.body;
+
+  User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
     .orFail(new NotFoundError(`Пользователь id = "${req.user._id}" не найден`))
     .then((user) => res.send(user))
-    .catch((err) => next(err));
+    .catch((err) => handleUpdateUserInfoError(err, next, email));
 }
 
 function createUser(req, res, next) {
@@ -36,13 +43,7 @@ function createUser(req, res, next) {
       delete user.password;
       res.send(user);
     })
-    .catch((err) => {
-      if (err.code === 11000) {
-        next(new ConflictError(`Email "${email}" уже зарегистрирован!`));
-      } else {
-        next(err);
-      }
-    });
+    .catch((err) => handleUpdateUserInfoError(err, next, email));
 }
 
 function login(req, res, next) {
