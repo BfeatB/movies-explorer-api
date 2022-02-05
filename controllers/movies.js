@@ -1,5 +1,5 @@
 const { NotFoundError, NoAccessError } = require('../utils');
-const { MovieNotFoundMessage, NoAccessMessage } = require('../utils/consts');
+const { MOVIE_NOT_FOUND_ERROR_MESSAGE, NO_ACCESS_ERROR_MESSAGE } = require('../utils/consts');
 const Movie = require('../models/movie');
 
 function getMovies(req, res, next) {
@@ -16,10 +16,10 @@ function updateMovie(req, res, next) {
 
 function deleteMovie(req, res, next) {
   Movie.findById(req.params.movieId)
-    .orFail(new NotFoundError(MovieNotFoundMessage))
+    .orFail(new NotFoundError(MOVIE_NOT_FOUND_ERROR_MESSAGE))
     .then((movie) => {
       if (movie.owner.toString() !== req.user._id) {
-        throw new NoAccessError(NoAccessMessage);
+        throw new NoAccessError(NO_ACCESS_ERROR_MESSAGE);
       }
       return Movie.findByIdAndRemove(req.params.movieId);
     })

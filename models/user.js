@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
-const { InvalidEmailMessage, InvalidUserDataMessage } = require('../utils/consts');
+const { INVALID_EMAIL_ERROR_MESSAGE, INVALID_USER_DATA_ERROR_MESSAGE } = require('../utils/consts');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (value) => validator.isEmail(value),
-      message: InvalidEmailMessage,
+      message: INVALID_EMAIL_ERROR_MESSAGE,
     },
   },
   password: {
@@ -32,13 +32,13 @@ function findUserByCredentials(email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        return Promise.reject(new Error(InvalidUserDataMessage));
+        return Promise.reject(new Error(INVALID_USER_DATA_ERROR_MESSAGE));
       }
 
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            return Promise.reject(new Error(InvalidUserDataMessage));
+            return Promise.reject(new Error(INVALID_USER_DATA_ERROR_MESSAGE));
           }
 
           return user;
