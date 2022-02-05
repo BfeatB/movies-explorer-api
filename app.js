@@ -2,13 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
-const {
-  celebrate, Joi, errors, Segments,
-} = require('celebrate');
-const auth = require('./middlewares/auth');
+const { errors } = require('celebrate');
+const authCheck = require('./middlewares/auth');
+const authRouter = require('./routes/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { NotFoundError } = require('./utils');
-const { createUser, login } = require('./controllers/users');
 const limiter = require('./utils/rate-limiter');
 
 const { PORT = 3000, DB_ADDRESS = 'mongodb://localhost:27017/moviesdb' } = process.env;
@@ -51,32 +49,11 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.post(
-  '/signin',
-  celebrate({
-    [Segments.BODY]: Joi.object().keys({
-      email: Joi.string().required().email(),
-      password: Joi.string().required(),
-    }),
-  }),
-  login,
-);
-app.post(
-  '/signup',
-  celebrate({
-    [Segments.BODY]: Joi.object().keys({
-      name: Joi.string().min(2),
-      email: Joi.string().required().email(),
-      password: Joi.string().required(),
-    }),
-  }),
-  createUser,
-);
+app.use(authRouter);
+app.use(authCheck);
 
-app.use(auth);
-
-app.use('/movies', require('./routes/movies'));
-app.use('/users', require('./routes/users'));
+app.use(require('./routes/movies'));
+app.use(require('./routes/users'));
 
 // Законное исключение из правила неиспользуемых параметров в функции,
 // так как express.js применяет эти мидлвари в зависимости от количества аргументов функции,

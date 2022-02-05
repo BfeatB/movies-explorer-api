@@ -2,16 +2,17 @@ const router = require('express').Router();
 const { celebrate, Joi, Segments } = require('celebrate');
 const { updateProfile, getUserInfo } = require('../controllers/users');
 
-router.get('/me', getUserInfo);
-router.patch(
-  '/me',
-  celebrate({
-    [Segments.BODY]: Joi.object().keys({
-      email: Joi.string().email().min(2),
-      name: Joi.string().min(2),
-    }),
-  }),
-  updateProfile,
-);
+const ROOT = '/users';
 
-module.exports = router;
+module.exports = router
+  .get(`${ROOT}/me`, getUserInfo)
+  .patch(
+    `${ROOT}/me`,
+    celebrate({
+      [Segments.BODY]: Joi.object().keys({
+        email: Joi.string().email().min(2),
+        name: Joi.string().min(2),
+      }),
+    }),
+    updateProfile,
+  );
