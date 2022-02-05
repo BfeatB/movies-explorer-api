@@ -8,10 +8,14 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { errorHandler } = require('./middlewares/errors');
 const limiter = require('./utils/rate-limiter');
 const routers = require('./routes/index');
+const { DEFAULT_DB_ADDRESS, DEFAULT_PORT } = require('./utils/consts');
 
 require('dotenv').config();
 
-const { PORT = 3000, DB_ADDRESS = 'mongodb://localhost:27017/moviesdb' } = process.env;
+const {
+  PORT = DEFAULT_PORT,
+  DB_ADDRESS = DEFAULT_DB_ADDRESS,
+} = process.env;
 
 const app = express();
 

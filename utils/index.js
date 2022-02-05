@@ -3,9 +3,7 @@ const NoAuthError = require('./errors/NoAuthError');
 const NoAccessError = require('./errors/NoAccessError');
 const BadRequestError = require('./errors/BadRequestError');
 const ConflictError = require('./errors/ConflictError');
-
-const { NODE_ENV, JWT_SECRET } = process.env;
-const JWT_SECRET_KEY = NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret';
+const { JWT_SECRET_KEY } = require('./consts');
 
 module.exports = {
   JWT_SECRET_KEY,

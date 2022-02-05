@@ -1,4 +1,6 @@
-const { PORT = 3000 } = process.env;
+const { DEFAULT_PORT } = require('../utils/consts');
+
+const { PORT = DEFAULT_PORT } = process.env;
 const allowedCors = [
   'https://bfeatb.nomoredomains.rocks',
   'http://bfeatb.nomoredomains.rocks',
