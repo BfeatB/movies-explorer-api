@@ -1,7 +1,5 @@
 const jwt = require('jsonwebtoken');
-const {
-  JWT_SECRET_KEY, BadRequestError, NoAuthError,
-} = require('../utils');
+const { JWT_SECRET_KEY, NoAuthError } = require('../utils');
 
 function extractBearerToken(header) {
   return header.replace('Bearer ', '');
@@ -11,7 +9,7 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    next(new BadRequestError('No or wrong authorization header'));
+    next(new NoAuthError('No or wrong authorization header'));
     return;
   }
 
