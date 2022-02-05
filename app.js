@@ -9,6 +9,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { NotFoundError } = require('./utils');
 const limiter = require('./utils/rate-limiter');
 
+require('dotenv').config();
 const { PORT = 3000, DB_ADDRESS = 'mongodb://localhost:27017/moviesdb' } = process.env;
 
 const app = express();
