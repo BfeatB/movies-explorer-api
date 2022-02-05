@@ -11,7 +11,7 @@ module.exports = router
     celebrate({
       [Segments.BODY]: Joi.object().keys({
         email: Joi.string().email().min(2).required(),
-        name: Joi.string().min(2),
+        name: Joi.string().min(2).max(30).required(),
       }),
     }),
     updateProfile,
